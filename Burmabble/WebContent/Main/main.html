@@ -4,34 +4,52 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var a = 0;
+	p1 = 0;
+	p2 = 0;
 	window.onload = function() {
-
-		var dice = document.getElementById("dice");
-
-		dice.onclick = function() {
-			//주사위
-			var result = document.getElementById("result");
-			//테이블 초기화를 위한 테그 네임 가져오기
-			var table = document.getElementsByTagName("td")
-			result.value = parseInt(((Math.random() * 5 + 1).toFixed(0)))
-					+ parseInt(((Math.random() * 5 + 1).toFixed(0)))
-			var c = ((a) % 32).toFixed(0);
-
-			a += result.value;
-
-			var b = ((a) % 32).toFixed(0);
+		var player1 = document.getElementById("player1");
+		var player2 = document.getElementById("player2");
+		var diceveiw1 = document.getElementById("dice1");
+		var diceveiw2 = document.getElementById("dice2");
+		var result = document.getElementById("result");
+		player1.onclick = function() {
+			//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
+			var dice1 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			var dice2 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			diceveiw1.innerHTML = dice1;
+			diceveiw2.innerHTML = dice2;
+			result.value = dice1 + dice2
+			var c = ((p1) % 32).toFixed(0);
+			p1 += result.value;
+			var b = ((p1) % 32).toFixed(0);
 			result.innerHTML = result.value;
-			var bg = document.getElementById(b);
-			var bg2 = document.getElementById(c);
 
 			//파랑색으로 바뀌기 전에 흰색으로 초기화
+			var bg2 = document.getElementById(c);
 			bg2.style.backgroundColor = "#ffffff";
-
 			//주사위가 움직인 만큼 파랑색으로 바뀜 
+			var bg = document.getElementById(b);
 			bg.style.backgroundColor = "#0000ff";
 		}
+		player2.onclick = function() {
+			//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
+			var dice1 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			var dice2 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			diceveiw1.innerHTML = dice1;
+			diceveiw2.innerHTML = dice2;
+			result.value = dice1 + dice2
+			var c = ((p2) % 32).toFixed(0);
+			p2 += result.value;
+			var b = ((p2) % 32).toFixed(0);
+			result.innerHTML = result.value;
 
+			//노랑색으로 바뀌기 전에 흰색으로 초기화
+			var bg2 = document.getElementById(c);
+			bg2.style.backgroundColor = "#ffffff";
+			//주사위가 움직인 만큼 파랑색으로 바뀜 
+			var bg = document.getElementById(b);
+			bg.style.backgroundColor = "#fff136";
+		}
 	}
 </script>
 <style type="text/css">
@@ -50,7 +68,8 @@ tr * {
 </style>
 </head>
 <body>
-	<input type="button" value="주사위 던저기" id="dice">
+	<input type="button" value="주사위 던지기1" id="player1">
+	<input type="button" value="주사위 던지기2" id="player2">
 	<table>
 		<tr>
 			<td id="16">올림픽</td>
@@ -65,7 +84,8 @@ tr * {
 		</tr>
 		<tr>
 			<td id="15">상파울로</td>
-			<td rowspan="7" colspan="7"><span id="result"></span></td>
+			<td rowspan="7" colspan="7"><span id="dice1"> </span> <span
+				id="dice2"> </span> <span id="result"> </span></td>
 			<td id="25">타히티</td>
 		</tr>
 		<tr>
