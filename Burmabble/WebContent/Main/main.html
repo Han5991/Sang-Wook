@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var a = 0;
+	window.onload = function() {
+
+		var dice = document.getElementById("dice");
+
+		dice.onclick = function() {
+			//주사위
+			var result = document.getElementById("result");
+			//테이블 초기화를 위한 테그 네임 가져오기
+			var table = document.getElementsByTagName("td")
+			result.value = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+					+ parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			var c = ((a) % 32).toFixed(0);
+
+			a += result.value;
+
+			var b = ((a) % 32).toFixed(0);
+			result.innerHTML = result.value;
+			var bg = document.getElementById(b);
+			var bg2 = document.getElementById(c);
+
+			//파랑색으로 바뀌기 전에 흰색으로 초기화
+			bg2.style.backgroundColor = "#ffffff";
+
+			//주사위가 움직인 만큼 파랑색으로 바뀜 
+			bg.style.backgroundColor = "#0000ff";
+		}
+
+	}
+</script>
+<style type="text/css">
+table {
+	text-align: center;
+	border: 1px solid black;
+	text-align: center;
+	margin: 150px auto;
+}
+
+tr * {
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+	<input type="button" value="주사위 던저기" id="dice">
+	<table>
+		<tr>
+			<td id="16">올림픽</td>
+			<td id="17">프라하</td>
+			<td id="18">푸켓</td>
+			<td id="19">베를린</td>
+			<td id="20">카드</td>
+			<td id="21">모스크바</td>
+			<td id="22">제네바</td>
+			<td id="23">로마</td>
+			<td id="24">세계여행</td>
+		</tr>
+		<tr>
+			<td id="15">상파울로</td>
+			<td rowspan="7" colspan="7"><span id="result"></span></td>
+			<td id="25">타히티</td>
+		</tr>
+		<tr>
+			<td id="14">하화이</td>
+			<td id="26">아테네</td>
+		</tr>
+		<tr>
+			<td id="13">퀘벡</td>
+			<td id="27">런던</td>
+		</tr>
+		<tr>
+			<td id="12">카드</td>
+			<td id="28">카드</td>
+		</tr>
+		<tr>
+			<td id="11">시드니</td>
+			<td id="29">파리</td>
+		</tr>
+		<tr>
+			<td id="10">도쿄</td>
+			<td id="30">뉴욕</td>
+		</tr>
+		<tr>
+			<td id="9">발리</td>
+			<td id="31">서울</td>
+		</tr>
+		<tr>
+			<td id="8">무인도</td>
+			<td id="7">카이로</td>
+			<td id="6">두바이</td>
+			<td id="5">독도</td>
+			<td id="4">카드</td>
+			<td id="3">베이징</td>
+			<td id="2">보너스게임</td>
+			<td id="1">방콕</td>
+			<td id="0">출발</td>
+		</tr>
+	</table>
+</body>
+</html>
