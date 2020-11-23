@@ -11,11 +11,17 @@
 		var player2 = document.getElementById("player2");
 		var diceveiw1 = document.getElementById("dice1");
 		var diceveiw2 = document.getElementById("dice2");
+		var timer= document.getElementById("time");
 		var result = document.getElementById("result");
+		player2.disabled = true;
+
 		player1.onclick = function() {
+			//순서대로 번호를 누르기 위한 작업
+			player1.disabled = true;
+			
 			//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
-			var dice1 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
-			var dice2 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
+			var dice1 = Math.floor(((Math.random() * 5 + 1)))
+			var dice2 = Math.floor(((Math.random() * 5 + 1)))
 			diceveiw1.innerHTML = dice1;
 			diceveiw2.innerHTML = dice2;
 			result.value = dice1 + dice2
@@ -23,15 +29,32 @@
 			p1 += result.value;
 			var b = ((p1) % 32).toFixed(0);
 			result.innerHTML = result.value;
-
+			
 			//파랑색으로 바뀌기 전에 흰색으로 초기화
 			var bg2 = document.getElementById(c);
 			bg2.style.backgroundColor = "#ffffff";
 			//주사위가 움직인 만큼 파랑색으로 바뀜 
 			var bg = document.getElementById(b);
+			city.innerHTML = bg.innerHTML;
 			bg.style.backgroundColor = "#0000ff";
+			//한 턴 당 시간 셋팅
+			setTimeout(() => {
+				clearInterval(g);
+				player2.disabled = false;
+				timer.value=0;
+			}, 15000);
+			
+			var t =0;
+			
+			var g =setInterval(function() {
+				t++;
+				timer.value=t;
+			}, 1000)
 		}
+
 		player2.onclick = function() {
+			//순서대로 번호를 누르기 위한 작업
+			player2.disabled = true;
 			//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
 			var dice1 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
 			var dice2 = parseInt(((Math.random() * 5 + 1).toFixed(0)))
@@ -41,15 +64,30 @@
 			var c = ((p2) % 32).toFixed(0);
 			p2 += result.value;
 			var b = ((p2) % 32).toFixed(0);
-			result.innerHTML = result.value;
+			result.innerHTML = result.innerText;
 
 			//노랑색으로 바뀌기 전에 흰색으로 초기화
 			var bg2 = document.getElementById(c);
 			bg2.style.backgroundColor = "#ffffff";
 			//주사위가 움직인 만큼 파랑색으로 바뀜 
 			var bg = document.getElementById(b);
+			city.innerHTML = bg.innerHTML;
 			bg.style.backgroundColor = "#fff136";
+			//한 턴당 시간 셋팅
+			setTimeout(() => {
+				clearInterval(g);
+				player1.disabled = false;
+				timer.value=0;
+			}, 15000);
+			
+			var t =0;
+			
+			var g =setInterval(function() {
+				t++;
+				timer.value=t;
+			}, 1000)
 		}
+
 	}
 </script>
 <style type="text/css">
@@ -70,6 +108,7 @@ tr * {
 <body>
 	<input type="button" value="주사위 던지기1" id="player1">
 	<input type="button" value="주사위 던지기2" id="player2">
+	<input type="text" value="0" id="time" readonly="readonly">
 	<table>
 		<tr>
 			<td id="16">올림픽</td>
@@ -85,7 +124,8 @@ tr * {
 		<tr>
 			<td id="15">상파울로</td>
 			<td rowspan="7" colspan="7"><span id="dice1"> </span> <span
-				id="dice2"> </span> <span id="result"> </span></td>
+				id="dice2"> </span> <span id="result"> </span><span id="city">
+			</span></td>
 			<td id="25">타히티</td>
 		</tr>
 		<tr>
