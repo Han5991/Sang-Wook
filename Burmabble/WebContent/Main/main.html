@@ -18,7 +18,7 @@
 
 		player1.onclick = function() {
 			//건물 구입 창이 뜸
-			main.innerHTML= "<iframe src=city.jsp></iframe>";
+			main.innerHTML= "<iframe src=city.html></iframe>";
 			//순서대로 번호를 누르기 위한 작업
 			player1.disabled = true;
 			
@@ -60,7 +60,7 @@
 		player2.onclick = function() {
 			//순서대로 번호를 누르기 위한 작업
 			player2.disabled = true;
-			main.innerHTML= "<iframe src=city.jsp></iframe>";
+			main.innerHTML= "<iframe src=city.html></iframe>";
 			//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
 			var dice1 = Math.floor(((Math.random() * 5 + 1)))
 			var dice2 = Math.floor(((Math.random() * 5 + 1)))
