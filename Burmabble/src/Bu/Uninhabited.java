@@ -1,6 +1,6 @@
-package aaa;
+package Bu;
 
 public class Uninhabited {
 	private String matser;
-	private int time;
+	private int time = 3;
 }
