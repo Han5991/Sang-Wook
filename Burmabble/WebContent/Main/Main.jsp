@@ -20,6 +20,10 @@
 		var timer= document.getElementById("time");
 		var result = document.getElementById("result");
 		var dicesum = document.getElementById("dicesum");
+		var purchase = document.getElementById("purchase");
+		purchase.onclick= function() {
+			
+		}
 		player2.disabled = true;
 		result.style.display="none";
 		player1.onclick = function() {
@@ -191,8 +195,8 @@ div {
 							<td>3,000</td>
 						</tr>
 						<tr>
-							<td colspan="3"><button type="button">도시/건물구매</button>
-								<button type="button">구매취소</button></td>
+							<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
+								<button type="reset">구매취소</button></td>
 						</tr>
 					</table>
 				</div>
