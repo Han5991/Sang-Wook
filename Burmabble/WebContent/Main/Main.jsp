@@ -20,10 +20,6 @@
 		var timer= document.getElementById("time");
 		var result = document.getElementById("result");
 		var dicesum = document.getElementById("dicesum");
-		var purchase = document.getElementById("purchase");
-		purchase.onclick= function() {
-			
-		}
 		player2.disabled = true;
 		result.style.display="none";
 		player1.onclick = function() {
@@ -91,7 +87,7 @@
 			//주사위가 움직인 만큼 파랑색으로 바뀜 
 			var bg = document.getElementById(b);
 			city.innerHTML = bg.innerHTML;
-			
+
 			bg.style.backgroundColor = "#fff136";
 			//한 턴당 시간 셋팅
 			setTimeout(() => {
@@ -108,6 +104,55 @@
 			}, 1000)
 		}
 	}
+</script>
+<script type="text/javascript" src="../jQuery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript"> //객체 아이디 넘기기용
+	$(function() {
+		$("#player1").click(
+				function() {
+					var params = "dicesum=" + $("#dicesum").val();// 서버로 데이터를 넘김
+					console.log(params);//subject=val() &content=val()
+					$.ajax({
+						type : "POST", // 전송방식
+						url : "Control.jsp", // 주소
+						data : params, // 서버로 가는 데이터 
+						dataType : "xml", //받을 때 데이터 타입 
+						success : function(args) {//  성공 했을 때 이 xml형태의 이터를 args로 받음(바깥으로부터 들어옴)
+							var str = "";//데이터를 다시 받는 작업
+							$(args).find("p").each(
+									function() {// record 다 찾아
+										var dicesum = $(this).find("#dicesum").text();
+										str += "dicesum=" + dicesum;
+									});
+							console.log(str);
+							//반복으로 만들어 낸 데이터를 html로 바꿔서 str으로 출력해
+							$("#result").html(str);// 받은 데이터를 표시
+							//javascript 방식에서 innerHTML이랑 같은 방식
+						},
+						//beforeSend : showRequest,
+						//보내기 전에 showRequest가서 검사
+						// true값을 받아야만, 위 ajax부분을 통해 서버로 데이터를 보냄
+						error : function(e) {
+							//에러메시지 출력
+							alert(e.responseText);
+						}
+					});
+				});
+	});
+	/*function showRequest() {
+		var flag = true; //일단 true
+		if (!$("#subject").val()) { //jQuery에서 가져오는 값이 없으면
+			alert("제목 입력해");
+			$("#subject").focus();
+			return false;
+		}
+		if (!$("#content").val()) {
+			alert("내용을 입력하세요!");
+			$("#content").focus();
+			return false;
+		}
+		return flag;
+	}*/
 </script>
 <style type="text/css">
 table {
@@ -146,7 +191,7 @@ div {
 
 	<table>
 		<tr>
-			<td id="16"><img src="../img/bg_olympic.png"></td>
+			<td id="16"><img src="../img/bg_olympic.png">올림픽</td>
 			<td id="17">프라하</td>
 			<td id="18">푸켓</td>
 			<td id="19">베를린</td>
@@ -154,51 +199,14 @@ div {
 			<td id="21">모스크바</td>
 			<td id="22">제네바</td>
 			<td id="23">로마</td>
-			<td id="24"><img src="../img/bg_travel.png"></td>
+			<td id="24"><img src="../img/bg_travel.png">세계여행</td>
 		</tr>
 		<tr>
 			<td id="15">상파울로</td>
 			<td rowspan="7" colspan="7">
 				<div id=result>
 					<span id="city"></span>
-					<table>
-						<tr>
-							<td>종류</td>
-							<td>갯수</td>
-							<td>가격</td>
-						</tr>
-						<tr>
-							<td>여관</td>
-							<td><select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-							</select></td>
-							<td>1,000</td>
-						</tr>
-						<tr>
-							<td>모텔</td>
-							<td><select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-							</select></td>
-							<td>2,000</td>
-						</tr>
-						<tr>
-							<td>호텔</td>
-							<td><select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-							</select></td>
-							<td>3,000</td>
-						</tr>
-						<tr>
-							<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
-								<button type="reset">구매취소</button></td>
-						</tr>
-					</table>
+
 				</div>
 			</td>
 			<td id="25">타히티</td>
@@ -228,7 +236,7 @@ div {
 			<td id="31">서울</td>
 		</tr>
 		<tr>
-			<td id="8"><img src="../img/bg_Uninhabited.png"></td>
+			<td id="8"><img src="../img/bg_Uninhabited.png">무인도</td>
 			<td id="7">카이로</td>
 			<td id="6">두바이</td>
 			<td id="5">독도</td>
@@ -239,26 +247,5 @@ div {
 			<td id="0"><img src="../img/bg_start.png">시작</td>
 		</tr>
 	</table>
-	<%
-		ArrayList<City> city = new ArrayList<City>();
-	for (int i = 0; i < 32; i++) {
-		city.add(new City(i + "", "null"));
-		if (i == 0) {
-			city.get(i).setmaster("시작");
-		} else if (i == 2) {
-			city.get(i).setmaster("보너스 게임");
-		} else if (i == 8) {
-			city.get(i).setmaster("무인도");
-		} else if (i == 16) {
-			city.get(i).setmaster("올림픽");
-		} else if (i == 20) {
-			city.get(i).setmaster("카드");
-		} else if (i == 24) {
-			city.get(i).setmaster("세계여행");
-		}
-		System.out.println("도시 주인 : " + city.get(i).getMaster() + "  도시 아이디 : " + city.get(i).getName() + "  " + "  통행료 : "
-		+ city.get(i).getPassagemoney());
-	}
-	%>
 </body>
 </html>
