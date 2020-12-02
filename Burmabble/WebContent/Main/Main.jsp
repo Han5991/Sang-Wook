@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="Bu.City"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%
+	ArrayList<City> city = new ArrayList<City>();
+for (int i = 0; i < 32; i++) {
+	city.add(new City(i + "", "null"));
+	if (i == 0) {
+		city.get(i).setmaster("시작");
+	} else if (i == 2) {
+		city.get(i).setmaster("보너스 게임");
+	} else if (i == 8) {
+		city.get(i).setmaster("무인도");
+	} else if (i == 16) {
+		city.get(i).setmaster("올림픽");
+	} else if ((i == 4) || (i == 12) || (i == 20) || (i == 28)) {
+		city.get(i).setmaster("카드");
+	} else if (i == 24) {
+		city.get(i).setmaster("세계여행");
+	}
+	System.out.println("도시 주인 : " + city.get(i).getMaster() + "  도시 아이디 : " + city.get(i).getName() + "  " + "  통행료 : "
+	+ city.get(i).getPassagemoney());
+}
+%>
 <script type="text/javascript" src="../jQuery/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	p1 = 0;
@@ -157,6 +180,7 @@
 				//노랑색으로 바뀌기 전에 흰색으로 초기화
 				var bg2 = document.getElementById(c);
 				bg2.style.backgroundColor = "#ffffff";
+				
 				//주사위가 움직인 만큼 파랑색으로 바뀜 
 				var bg = document.getElementById(b);
 				city.innerHTML = bg.innerHTML;
@@ -375,17 +399,69 @@ div {
 				</div>
 				<div id="Olympic">
 					<select>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+						<option>방콕</option>
+						<option value=3>베이징</option>
+						<option value=5>독도</option>
+						<option value=6>두바이</option>
+						<option value=7>카이로</option>
+						<option value=9>발리</option>
+						<option value=10>도쿄</option>
+						<option value=11>시드니</option>
+						<option value=13>퀘백</option>
+						<option value=14>하와이</option>
+						<option value=15>상파울로</option>
+						<option value=17>프라하</option>
+						<option value=18>푸켓</option>
+						<option value=19>베를린</option>
+						<option value=21>모스크바</option>
+						<option value=22>제네바</option>
+						<option value=23>로마</option>
+						<option value=24>세계여행</option>
+						<option value=25>타히티</option>
+						<option value=26>아테네</option>
+						<option value=27>런던</option>
+						<option value=28>카드</option>
+						<option value=29>파리</option>
+						<option value=30>뉴욕</option>
+						<option value=31>서울</option>
 					</select>
+					<button type="button">올림픽개최</button>
 				</div>
 				<div id="Travel">
 					<select>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+						<option value=0>시작</option>
+						<option value=1>방콕</option>
+						<option value=2>보너스 게임</option>
+						<option value=3>베이징</option>
+						<option value=4>카드</option>
+						<option value=5>독도</option>
+						<option value=6>두바이</option>
+						<option value=7>카이로</option>
+						<option value=8>무인도</option>
+						<option value=9>발리</option>
+						<option value=10>도쿄</option>
+						<option value=11>시드니</option>
+						<option value=12>카드</option>
+						<option value=13>퀘백</option>
+						<option value=14>하와이</option>
+						<option value=15>상파울로</option>
+						<option value=16>올림픽</option>
+						<option value=17>프라하</option>
+						<option value=18>푸켓</option>
+						<option value=19>베를린</option>
+						<option value=20>카드</option>
+						<option value=21>모스크바</option>
+						<option value=22>제네바</option>
+						<option value=23>로마</option>
+						<option value=25>타히티</option>
+						<option value=26>아테네</option>
+						<option value=27>런던</option>
+						<option value=28>카드</option>
+						<option value=29>파리</option>
+						<option value=30>뉴욕</option>
+						<option value=31>서울</option>
 					</select>
+					<button type="button">여행가기</button>
 				</div></td>
 			<td id="25">타히티</td>
 		</tr>
