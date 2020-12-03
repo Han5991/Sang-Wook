@@ -38,7 +38,9 @@ for (int i = 0; i < 32; i++) {
 		var diceveiw1 = document.getElementById("dice1");
 		var diceveiw2 = document.getElementById("dice2");
 		var dicesum = document.getElementById("dicesum");
+		
 		var timer = document.getElementById("time");
+		var cancel = document.getElementsByName("cancel");
 		
 		var resultCity = document.getElementById("resultCity");
 		var Uninhabited = document.getElementById("Uninhabited");
@@ -53,7 +55,17 @@ for (int i = 0; i < 32; i++) {
 		Olympic.style.display="none";
 		Travel.style.display="none";
 		
+		for(var i = 0;i<cancel.length;i++){
+		 	cancel[i].onclick= function() {
+		 		resultCity.style.display="none";
+				Uninhabited.style.display="none";
+				Start.style.display="none";
+				Olympic.style.display="none";
+				Travel.style.display="none";
+			}			
+		}
 		$(function() {
+
 			$("#player1").click(function() {
 				
 				//순서대로 번호를 누르기 위한 작업
@@ -237,9 +249,9 @@ for (int i = 0; i < 32; i++) {
 					timer.value=t;
 				}, 1000)
 				
-				/*var params ="b="+b;// 서버로 데이터를 넘김
+				var params ="b="+b;// 서버로 데이터를 넘김
 				console.log(params);
-				$.ajax({
+				/*$.ajax({
 					type : "POST", // 전송방식
 					url : "Control.jsp", // 주소
 					data : params, // 서버로 가는 데이터 
@@ -350,7 +362,7 @@ div {
 						</tr>
 						<tr>
 							<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
-								<button type="reset">구매취소</button></td>
+								<button type="button" name="cancel">구매취소</button></td>
 						</tr>
 					</table>
 				</div>
@@ -393,7 +405,7 @@ div {
 						</tr>
 						<tr>
 							<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
-								<button type="reset">구매취소</button></td>
+								<button type="button" name="cancel">구매취소</button></td>
 						</tr>
 					</table>
 				</div>
@@ -462,6 +474,7 @@ div {
 						<option value=31>서울</option>
 					</select>
 					<button type="button">여행가기</button>
+					<button type="button" name="cancel">여행 안 감</button>
 				</div></td>
 			<td id="25">타히티</td>
 		</tr>
