@@ -1,6 +1,9 @@
 package Bu;
 
-public class City {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class City implements Serializable{
 	private String name;
 	private String master;
 	private int inn;
@@ -36,4 +39,17 @@ public class City {
 			System.out.println("잘 못 된 접근입니다.");
 		}
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMaster() {
+		return master;
+	}
+
+	public int getPassagemoney() {
+		return passagemoney;
+	}
+
 }

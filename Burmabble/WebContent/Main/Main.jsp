@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.io.*"%>
 <%@page import="Bu.City"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -26,6 +27,24 @@ for (int i = 0; i < 32; i++) {
 	}
 	System.out.println("도시 주인 : " + city.get(i).getMaster() + "  도시 아이디 : " + city.get(i).getName() + "  " + "  통행료 : "
 	+ city.get(i).getPassagemoney());
+}
+FileOutputStream fout = null;
+ObjectOutputStream oout = null;
+try {
+	fout = new FileOutputStream("City.dat");
+	oout = new ObjectOutputStream(fout);
+	oout.writeObject("");
+	oout.reset();
+	System.out.println("도시저장 완료");
+} catch (Exception e) {
+	System.out.println(e);
+} finally {
+	try {
+		fout.close();
+		oout.close();
+	} catch (IOException ie) {
+		System.out.println(ie);
+	}
 }
 %>
 <script type="text/javascript" src="../jQuery/jquery-3.5.1.min.js"></script>
