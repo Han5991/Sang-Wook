@@ -3,7 +3,7 @@ package Bu;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class City implements Serializable{
+public class City implements Serializable {
 	private String name;
 	private String master;
 	private int inn;
@@ -52,4 +52,8 @@ public class City implements Serializable{
 		return passagemoney;
 	}
 
+	@Override
+	public String toString() {
+		return "name : " +getName() + ", master : " + getMaster() + ", passagemoney : " + getPassagemoney();
+	}
 }
