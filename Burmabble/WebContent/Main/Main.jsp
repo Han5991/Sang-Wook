@@ -84,7 +84,7 @@ try {
 		$(function() {
 
 			$("#player1").click(function() {
-				
+			
 				//순서대로 번호를 누르기 위한 작업
 				player1.disabled = true;
 				
@@ -159,37 +159,10 @@ try {
 					t++;
 					timer.value=t;
 				}, 1000)
-				
 				var params = "b="+b;// 서버로 데이터를 넘김
-				console.log(params);
-				$.ajax({
-					type : "POST", // 전송방식
-					url : "Control.jsp", // 주소
-					data : params, // 서버로 가는 데이터 
-					dataType : "html", //받을 때 데이터 타입 
-					success : function(args) {//  성공 했을 때 이 xml형태의 이터를 args로 받음(바깥으로부터 들어옴)
-						//$("#result").html(args);// 받은 데이터를 표시
-						console.log(args);
-					},
-					beforeSend : showRequest,
-					error : function(e) {
-						alert("Main : "+e.responseText);
-					}
-				});
-			});
-		});
-		function showRequest() {
-			var flag = true; //일단 true
-			if (!$("#dicesum").val()) { //jQuery에서 가져오는 값이 없으면
-				alert("주사위를 굴려주세요");
-				return false;
-			}
-			return flag;
-		}
 		
 /*--------------------------------------------------------------------------------------*/
-		
-		$(function() {
+ 
 			$("#player2").click(function() {
 				
 				//순서대로 번호를 누르기 위한 작업
@@ -267,31 +240,61 @@ try {
 					timer.value=t;
 				}, 1000)
 				
-				var params ="b="+b;// 서버로 데이터를 넘김
-				console.log(params);
-				$.ajax({
-					type : "POST", // 전송방식
-					url : "Control.jsp", // 주소
-					data : params, // 서버로 가는 데이터 
-					dataType : "html", //받을 때 데이터 타입 
-					success : function(args) {//  성공 했을 때 이 xml형태의 이터를 args로 받음(바깥으로부터 들어옴)
-						console.log(args);
-					},
-					beforeSend : showRequest,
-					error : function(e) {
-						alert(e.responseText);
-					}
+			});
+				
+/*---------------------------------------------------------------------------------------*/
+ 	
+			$("#purchase").click(function() {
+			// 건물 구매창 초기화 작업
+		 	resultCity.style.display="none";
+			Uninhabited.style.display="none";
+			Start.style.display="none";
+			Olympic.style.display="none";
+			Travel.style.display="none";
+			$("#resultCity  input").val(0);
+			$("#Start  input").val(0);
+			//통신을 위한 작업  b= 현재위치
+			if (b == 0) {
+				var params = "b="+b;//"시작"
+			} else if (b == 2) {
+				var params = "b="+b;//"보너스 게임"
+			} else if (b == 8) {
+				var params = "b="+b;// "무인도"
+			} else if (b == 16) {
+				var params = "b="+b;// "올림픽"
+			} else if ((b == 4) || (b == 12) || (b == 20) || (b == 28)) {
+				var params = "b="+b;// "카드"
+			} else if (b == 24) {
+				var params = "b="+b;// "세계여행"
+			} else{
+				var params = "b="+b
+			}
+			//"&resultCity="+ $("#resultCity option:selected").val();
+			$.ajax({
+				type : "POST", // 전송방식
+				url : "Control.jsp", // 주소
+				data : params, // 서버로 가는 데이터 
+				dataType : "text", //받을 때 데이터 타입 
+				success : function(args) {//  성공 했을 때 args로 받음(바깥으로부터 들어옴)
+					//내가 구입한 정보 확인창 
+					$("#chatting").html(args);
+				},
+				beforeSend : showRequest,
+				error : function(e) {
+					alert("Main : "+e.responseText);
+				}
+			});
+			function showRequest() {
+				var flag = true; //일단 true
+				if (!$("#dicesum").val()) { //jQuery에서 가져오는 값이 없으면
+					alert("주사위를 굴려주세요");
+					return false;
+				}
+				return flag;
+			}
 				});
 			});
 		});
-		function showRequest() {
-			var flag = true; //일단 true
-			if (!$("#dicesum").val()) { //jQuery에서 가져오는 값이 없으면
-				alert("주사위를 굴려주세요");
-				return false;
-			}
-			return flag;
-		}
 	}
 </script>
 <style type="text/css">
@@ -357,32 +360,17 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+										<td><input type="number" min="0" max="3"/></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+										<td><input type="number" min="0" max="3"/></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+									<td><input type="number" min="0" max="3"/></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
@@ -403,32 +391,17 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+									<td><input type="number" min="0" max="3"/></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+										<td><input type="number" min="0" max="3"/></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><select>
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-										</select></td>
+									<td><input type="number" min="0" max="3"/></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
@@ -546,7 +519,7 @@ div {
 		</tr>
 		<tr>
 			<td>유저3</td>
-			<td>채팅 및 게임 메시지 출력</td>
+			<td id=chatting>채팅 및 게임 메시지 출력</td>
 			<td>유저4</td>
 		</tr>
 	</table>

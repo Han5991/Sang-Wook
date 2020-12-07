@@ -6,6 +6,10 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 String b = request.getParameter("b");
+//String resultCity = request.getParameter("resultCity");
+//String Start = request.getParameter("Start");
+//String Olympic = request.getParameter("Olympic");
+//String Travel = request.getParameter("Travel");
 
 FileInputStream fin = null;
 ObjectInputStream oin = null;
@@ -27,6 +31,6 @@ try {
 		System.out.println("Con IOE: " + ie);
 	}
 }
-city.get(Integer.parseInt(b));
+System.out.println(city.get(Integer.parseInt(b)).toString());
 %>
-<p id="dicesum"><%=b%></p>
+<%=city.get(Integer.parseInt(b)).toString()%>

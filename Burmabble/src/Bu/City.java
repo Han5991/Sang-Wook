@@ -38,6 +38,7 @@ public class City implements Serializable {
 		default:
 			System.out.println("잘 못 된 접근입니다.");
 		}
+		
 	}
 
 	public String getName() {
