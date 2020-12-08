@@ -9,9 +9,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
-	ArrayList<City> city = new ArrayList<City>();
+	String C[] = {"시작", "방콕", "보너스게임", "베이징", "카드", "독도", "두바이", "카이로", "무인도", "발리", "도쿄", "시드니", "카드", "퀴벡", "하화이", "상파울로",
+		"올림픽", "프라하", "푸켓", "베를린", "카드", "모스크바", "제네바", "로마", "세계여행", "타히티", "아테네", "런던", "카드", "파리", "뉴욕", "서울"};
+ArrayList<City> city = new ArrayList<City>();
 for (int i = 0; i < 32; i++) {
-	city.add(new City(i + "", "null"));
+	city.add(new City(C[i], "null"));
 	if (i == 0) {
 		city.get(i).setmaster("시작");
 	} else if (i == 2) {
@@ -29,11 +31,11 @@ for (int i = 0; i < 32; i++) {
 FileOutputStream fout = null;
 ObjectOutputStream oout = null;
 try {
-	fout = new FileOutputStream("City.text");
+	fout = new FileOutputStream("abcd.text");
 	oout = new ObjectOutputStream(fout);
 	oout.writeObject(city);
 	oout.reset();
-	System.out.println("도시저장 완료");
+	System.out.println("Main : 도시저장 완료");
 } catch (Exception e) {
 	System.out.println(e);
 } finally {
@@ -49,6 +51,7 @@ try {
 <script type="text/javascript">
 	p1 = 0;
 	p2 = 0;
+	
 	window.onload = function() {
 		var player1 = document.getElementById("player1");
 		var player2 = document.getElementById("player2");
@@ -82,7 +85,6 @@ try {
 			}			
 		}
 		$(function() {
-
 			$("#player1").click(function() {
 			
 				//순서대로 번호를 누르기 위한 작업
@@ -99,6 +101,7 @@ try {
 				p1 += dicesum.value;
 
 				b = ((p1) % 32).toFixed(0);
+				console.log("p1 : "+b);
 				dicesum.innerHTML = dicesum.value;
 				
 				//파랑색으로 바뀌기 전에 흰색으로 초기화
@@ -106,8 +109,8 @@ try {
 				bg2.style.backgroundColor = "#ffffff";
 				//주사위가 움직인 만큼 파랑색으로 바뀜 
 				var bg = document.getElementById(b);
-				city.innerHTML = bg.innerHTML;
 				bg.style.backgroundColor = "#0000ff";
+				city.innerHTML = bg.innerHTML;
 				
 				//결과창에 서브 창 띄우기				
 				if(b==0){//시작
@@ -117,7 +120,11 @@ try {
 					Travel.style.display="none";
 					resultCity.style.display="none";
 				}else if (b==2){//보너스 게임
-					
+					Start.style.display="none";
+					Uninhabited.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					resultCity.style.display="none";
 				}else if (b==8){//무인도
 					Start.style.display="none";
 					Uninhabited.style.display="block";
@@ -130,8 +137,12 @@ try {
 					Olympic.style.display="block";
 					Travel.style.display="none";
 					resultCity.style.display="none";
-				}else if (b==20){
-					
+				}else if (b==4||b==12||b==20||b==28){//카드
+					Start.style.display="none";
+					Uninhabited.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					resultCity.style.display="none";
 				}else if (b==24){//세계여행
 					Start.style.display="none";
 					Uninhabited.style.display="none";
@@ -159,10 +170,9 @@ try {
 					t++;
 					timer.value=t;
 				}, 1000)
-				var params = "b="+b;// 서버로 데이터를 넘김
-		
+			
+			});//p1
 /*--------------------------------------------------------------------------------------*/
- 
 			$("#player2").click(function() {
 				
 				//순서대로 번호를 누르기 위한 작업
@@ -174,20 +184,22 @@ try {
 				diceveiw1.innerHTML = dice1;
 				diceveiw2.innerHTML = dice2;
 				dicesum.value = dice1 + dice2;
+				
 				var c = ((p2) % 32).toFixed(0);
 				p2 += dicesum.value;
 
-				var b = ((p2) % 32).toFixed(0);
+				b = ((p2) % 32).toFixed(0);
+				console.log("p2 : "+b);
 				dicesum.innerHTML = dicesum.value;
 
 				//노랑색으로 바뀌기 전에 흰색으로 초기화
 				var bg2 = document.getElementById(c);
 				bg2.style.backgroundColor = "#ffffff";
-				
-				//주사위가 움직인 만큼 파랑색으로 바뀜 
+				//주사위가 움직인 만큼 노랑색으로 바뀜 
 				var bg = document.getElementById(b);
+				bg.style.backgroundColor = "#fff136";
 				city.innerHTML = bg.innerHTML;
-
+				
 				//결과창에 서브 창 띄우기				
 				if(b==0){//시작
 					Start.style.display="block";
@@ -196,7 +208,11 @@ try {
 					Travel.style.display="none";
 					resultCity.style.display="none";
 				}else if (b==2){//보너스 게임
-					
+					Start.style.display="none";
+					Uninhabited.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					resultCity.style.display="none";
 				}else if (b==8){//무인도
 					Start.style.display="none";
 					Uninhabited.style.display="block";
@@ -209,8 +225,12 @@ try {
 					Olympic.style.display="block";
 					Travel.style.display="none";
 					resultCity.style.display="none";
-				}else if (b==20){
-					
+				}else if (b==4||b==12||b==20||b==28){//카드
+					Start.style.display="none";
+					Uninhabited.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					resultCity.style.display="none";
 				}else if (b==24){//세계여행
 					Start.style.display="none";
 					Uninhabited.style.display="none";
@@ -225,7 +245,6 @@ try {
 					resultCity.style.display="block";
 				}
 				
-				bg.style.backgroundColor = "#fff136";
 				//한 턴당 시간 셋팅
 				setTimeout(() => {
 					clearInterval(g);
@@ -240,10 +259,8 @@ try {
 					timer.value=t;
 				}, 1000)
 				
-			});
-				
+			});//p2
 /*---------------------------------------------------------------------------------------*/
- 	
 			$("#purchase").click(function() {
 			// 건물 구매창 초기화 작업
 		 	resultCity.style.display="none";
@@ -251,8 +268,7 @@ try {
 			Start.style.display="none";
 			Olympic.style.display="none";
 			Travel.style.display="none";
-			$("#resultCity  input").val(0);
-			$("#Start  input").val(0);
+
 			//통신을 위한 작업  b= 현재위치
 			if (b == 0) {
 				var params = "b="+b;//"시작"
@@ -267,21 +283,29 @@ try {
 			} else if (b == 24) {
 				var params = "b="+b;// "세계여행"
 			} else{
-				var params = "b="+b
+				var params = "b="+b+"&inn="+$("input[name=inn]").val()+"&motel="+$("input[name=motel]").val()+"&hotel="+$("input[name=hotel]").val();
 			}
-			//"&resultCity="+ $("#resultCity option:selected").val();
+			
+			$("#resultCity  input").val(0);
+			$("#Start  input").val(0);
 			$.ajax({
 				type : "POST", // 전송방식
 				url : "Control.jsp", // 주소
 				data : params, // 서버로 가는 데이터 
-				dataType : "text", //받을 때 데이터 타입 
+				dataType : "xml", //받을 때 데이터 타입 
 				success : function(args) {//  성공 했을 때 args로 받음(바깥으로부터 들어옴)
 					//내가 구입한 정보 확인창 
-					$("#chatting").html(args);
+					var str="";
+				$(args).find("record").each(function() {// record 다 찾아
+					var subject = $(this).find("subject").text();
+							     str+= subject;
+				});
+					$("#chatting").html(str);
 				},
 				beforeSend : showRequest,
 				error : function(e) {
-					alert("Main : "+e.responseText);
+					//alert("Main : "+e.responseText);
+					$("#chatting").html(e.responseText);
 				}
 			});
 			function showRequest() {
@@ -292,10 +316,10 @@ try {
 				}
 				return flag;
 			}
-				});
-			});
-		});
-	}
+				});//purchase
+	
+	});//제이쿼리 끝
+	}// onload 끝
 </script>
 <style type="text/css">
 table {
@@ -359,18 +383,23 @@ div {
 										<td>가격</td>
 									</tr>
 									<tr>
+										<td>도시 구매</td>
+										<td><input type="number" min="0" max="1" name=city /></td>
+										<td>5,000</td>
+									</tr>
+									<tr>
 										<td>여관</td>
-										<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" name=inn /></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" name=motel /></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-									<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" name=hotel /></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
@@ -391,17 +420,17 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-									<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" /></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" /></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-									<td><input type="number" min="0" max="3"/></td>
+										<td><input type="number" min="0" max="3" /></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
