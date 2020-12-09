@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.io.*"%>
 <%@page import="Bu.City"%>
+<%@page import="Bu.Player"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,14 +29,25 @@ for (int i = 0; i < 32; i++) {
 		city.get(i).setmaster("세계여행");
 	}
 }
+ArrayList<Player> player = new ArrayList<Player>();
+for (int i = 1; i <= 2; i++) {
+	player.add(new Player("P"+i));
+}
 FileOutputStream fout = null;
 ObjectOutputStream oout = null;
 try {
-	fout = new FileOutputStream("abcd.text");
+	fout = new FileOutputStream("city.text");
 	oout = new ObjectOutputStream(fout);
 	oout.writeObject(city);
 	oout.reset();
 	System.out.println("Main : 도시저장 완료");
+	
+	fout = new FileOutputStream("player.text");
+	oout = new ObjectOutputStream(fout);
+	oout.writeObject(player);
+	oout.reset();
+	System.out.println("Main : 플레이어 저장 완료");
+
 } catch (Exception e) {
 	System.out.println(e);
 } finally {
@@ -51,7 +63,7 @@ try {
 <script type="text/javascript">
 	p1 = 0;
 	p2 = 0;
-	
+	who="";
 	window.onload = function() {
 		var player1 = document.getElementById("player1");
 		var player2 = document.getElementById("player2");
@@ -86,7 +98,7 @@ try {
 		}
 		$(function() {
 			$("#player1").click(function() {
-			
+			who="p1";
 				//순서대로 번호를 누르기 위한 작업
 				player1.disabled = true;
 				
@@ -174,7 +186,7 @@ try {
 			});//p1
 /*--------------------------------------------------------------------------------------*/
 			$("#player2").click(function() {
-				
+				who="p2";
 				//순서대로 번호를 누르기 위한 작업
 				player2.disabled = true;
 				
@@ -268,6 +280,7 @@ try {
 			Start.style.display="none";
 			Olympic.style.display="none";
 			Travel.style.display="none";
+			$("input:checkbox[name='city']").prop("checked", false);
 
 			//통신을 위한 작업  b= 현재위치
 			if (b == 0) {
@@ -283,7 +296,7 @@ try {
 			} else if (b == 24) {
 				var params = "b="+b;// "세계여행"
 			} else{
-				var params = "b="+b+"&inn="+$("input[name=inn]").val()+"&motel="+$("input[name=motel]").val()+"&hotel="+$("input[name=hotel]").val();
+				var params = "b="+b+"&inn="+$("input[name=inn]").val()+"&motel="+$("input[name=motel]").val()+"&hotel="+$("input[name=hotel]").val()+"&who="+who+"&city="+$("input[name=city]").val();
 			}
 			
 			$("#resultCity  input").val(0);
@@ -296,11 +309,19 @@ try {
 				success : function(args) {//  성공 했을 때 args로 받음(바깥으로부터 들어옴)
 					//내가 구입한 정보 확인창 
 					var str="";
+					var pl1="";
+					var pl2="";
 				$(args).find("record").each(function() {// record 다 찾아
 					var subject = $(this).find("subject").text();
+					var content1 = $(this).find("content1").text();
+					var content2 = $(this).find("content2").text();
 							     str+= subject;
+							     pl1+= content1;
+							     pl2+= content2;
 				});
 					$("#chatting").html(str);
+					$("#pl1").html(pl1);
+					$("#pl2").html(pl2);
 				},
 				beforeSend : showRequest,
 				error : function(e) {
@@ -316,8 +337,7 @@ try {
 				}
 				return flag;
 			}
-				});//purchase
-	
+				});//purchase 끝
 	});//제이쿼리 끝
 	}// onload 끝
 </script>
@@ -351,12 +371,12 @@ div {
 <body>
 	<table>
 		<tr>
-			<td>유저 1</td>
+			<td id=pl1>><%=player.get(0).toString()%></td>
 			<td><input type="button" value="주사위 던지기1" id="player1">
 				<input type="button" value="주사위 던지기2" id="player2"> <input
 				type="text" value="0" id="time" readonly="readonly"> <span
 				id="dice1">0</span> <span id="dice2">0</span> <span id="dicesum"></span></td>
-			<td>유저 2</td>
+			<td id=pl2>><%=player.get(1).toString()%></td>
 		</tr>
 		<tr>
 			<td>빈 공 간</td>
@@ -384,22 +404,25 @@ div {
 									</tr>
 									<tr>
 										<td>도시 구매</td>
-										<td><input type="number" min="0" max="1" name=city /></td>
+										<td><input type="checkbox" name=city /></td>
 										<td>5,000</td>
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><input type="number" min="0" max="3" name=inn /></td>
+										<td><input type="number" min="0" max="3" name=inn
+											value="0" /></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3" name=motel /></td>
+										<td><input type="number" min="0" max="3" name=motel
+											value="0" /></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><input type="number" min="0" max="3" name=hotel /></td>
+										<td><input type="number" min="0" max="3" name=hotel
+											value="0" /></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
@@ -420,17 +443,17 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><input type="number" min="0" max="3" /></td>
+										<td><input type="number" min="0" max="3" value="0" /></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3" /></td>
+										<td><input type="number" min="0" max="3" value="0" /></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><input type="number" min="0" max="3" /></td>
+										<td><input type="number" min="0" max="3" value="0" /></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
