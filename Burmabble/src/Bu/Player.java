@@ -1,18 +1,20 @@
 package Bu;
 
-public class Player {
-	private int id;
+import java.io.Serializable;
+
+public class Player implements Serializable {
+	private String id;
 	private int money = 100000;
 
-	public Player(int id) {
+	public Player(String id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -24,4 +26,7 @@ public class Player {
 		this.money = money;
 	}
 
+	public String toString() {
+		return "id : " + id + ", money : " + money;
+	}
 }
