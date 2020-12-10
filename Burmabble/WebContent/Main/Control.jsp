@@ -9,6 +9,7 @@
 /*---------플레이어 정보----------*/
 String b = request.getParameter("b");
 String who = request.getParameter("who");
+
 /*---------도시 정보----------*/
 String cityname = request.getParameter("city");
 int inn = Integer.parseInt(request.getParameter("inn"));
@@ -19,7 +20,6 @@ int hotel = Integer.parseInt(request.getParameter("hotel"));
 //String Start = request.getParameter("Start");
 //String Olympic = request.getParameter("Olympic");
 //String Travel = request.getParameter("Travel");
-
 FileInputStream fin = null;
 ObjectInputStream oin = null;
 ArrayList<City> city = new ArrayList<City>();
@@ -29,11 +29,11 @@ try {
 	fin = new FileInputStream("city.text");
 	oin = new ObjectInputStream(fin);
 	city = (ArrayList) oin.readObject();
-	
+
 	fin = new FileInputStream("player.text");
 	oin = new ObjectInputStream(fin);
 	player = (ArrayList) oin.readObject();
-	
+
 } catch (Exception e) {
 	System.out.println("Con  E : " + e);
 } finally {
@@ -45,29 +45,45 @@ try {
 	}
 }
 
+/*----------데이터 수정(도시 및 건물 구매) ----------*/
+String error = "";
+int sum = 0;
 if (cityname.equals("on")) {
-	city.get(Integer.parseInt(b)).setmaster(who);
+	sum = inn * 1000 + motel * 2000 + hotel * 3000 + 5000;
+} else
+	sum = inn * 1000 + motel * 2000 + hotel * 3000;
+if (player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() >= sum) {
+	// 도시 구매
+	if (cityname.equals("on")) {
+		city.get(Integer.parseInt(b)).setmaster(who);
+	}
+	// 건물 구매
+	city.get(Integer.parseInt(b)).setpassagemoney(1, inn * 2);
+	city.get(Integer.parseInt(b)).setpassagemoney(2, motel * 2);
+	city.get(Integer.parseInt(b)).setpassagemoney(3, hotel * 2);
+	//돈 차감
+	player.get(Integer.parseInt(who.replace("p", "")) - 1)
+	.setMoney(player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() - sum);
+} else {
+	error = "돈이 부족합니다";
 }
-
-city.get(Integer.parseInt(b)).setpassagemoney(1, inn);
-city.get(Integer.parseInt(b)).setpassagemoney(2, motel);
-city.get(Integer.parseInt(b)).setpassagemoney(3, hotel);
-
+/*----------세이브파일 저장 ----------*/
 FileOutputStream fout = null;
 ObjectOutputStream oout = null;
 try {
+
 	fout = new FileOutputStream("city.text");
 	oout = new ObjectOutputStream(fout);
 	oout.writeObject(city);
 	oout.reset();
 	System.out.println("Con : 도시저장 완료");
-	
+
 	fout = new FileOutputStream("player.text");
 	oout = new ObjectOutputStream(fout);
 	oout.writeObject(player);
 	oout.reset();
 	System.out.println("Main : 플레이어 저장 완료");
-	
+
 } catch (Exception e) {
 	System.out.println(e);
 } finally {
@@ -81,18 +97,10 @@ try {
 for (int i = 0; i < city.size(); i++) {
 	System.out.println("Con : " + city.get(i).toString());
 }
+/*----------------------------------------------*/
 %>
-<root>
- 	<status></status>
- 	<record id="1">
- 	<subject><%=city.get(Integer.parseInt(b)).toString()%></subject>
- 	<content1><%=player.get(0).toString()%></content1>
- 	<content2><%=player.get(1).toString()%></content2>
-<!-- 사용자가 넘긴 데이터들 출력 --> 
-	</record>
- <!-- 추가 데이터 -->
-	<record id="2">
-	<subject></subject>
-	<content></content>
-	</record>
-</root>
+<root> <status></status> <!-- 사용자가 넘긴 데이터들 출력 --> <record id="1">
+<subject><%=city.get(Integer.parseInt(b)).toString()%></subject> <content1><%=player.get(0).toString()%></content1>
+<content2><%=player.get(1).toString()%></content2> <content3><%=error%></content3>
+</record> <!-- 추가 데이터 --> <record id="2"> <subject></subject> <content></content>
+</record> </root>

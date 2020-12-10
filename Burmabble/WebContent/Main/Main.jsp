@@ -31,7 +31,7 @@ for (int i = 0; i < 32; i++) {
 }
 ArrayList<Player> player = new ArrayList<Player>();
 for (int i = 1; i <= 2; i++) {
-	player.add(new Player("P"+i));
+	player.add(new Player("p" + i));
 }
 FileOutputStream fout = null;
 ObjectOutputStream oout = null;
@@ -41,7 +41,7 @@ try {
 	oout.writeObject(city);
 	oout.reset();
 	System.out.println("Main : 도시저장 완료");
-	
+
 	fout = new FileOutputStream("player.text");
 	oout = new ObjectOutputStream(fout);
 	oout.writeObject(player);
@@ -96,6 +96,7 @@ try {
 				Travel.style.display="none";
 			}			
 		}
+		
 		$(function() {
 			$("#player1").click(function() {
 			who="p1";
@@ -299,7 +300,7 @@ try {
 				var params = "b="+b+"&inn="+$("input[name=inn]").val()+"&motel="+$("input[name=motel]").val()+"&hotel="+$("input[name=hotel]").val()+"&who="+who+"&city="+$("input[name=city]").val();
 			}
 			
-			$("#resultCity  input").val(0);
+			$("#resultCity  input[type=number]").val(0);
 			$("#Start  input").val(0);
 			$.ajax({
 				type : "POST", // 전송방식
@@ -311,14 +312,16 @@ try {
 					var str="";
 					var pl1="";
 					var pl2="";
+					var error="";
 				$(args).find("record").each(function() {// record 다 찾아
 					var subject = $(this).find("subject").text();
 					var content1 = $(this).find("content1").text();
 					var content2 = $(this).find("content2").text();
-							     str+= subject;
+					var content3 = $(this).find("content3").text();
+							     str+= subject+"<br>"+content3;
 							     pl1+= content1;
 							     pl2+= content2;
-				});
+				 });
 					$("#chatting").html(str);
 					$("#pl1").html(pl1);
 					$("#pl2").html(pl2);
@@ -371,12 +374,12 @@ div {
 <body>
 	<table>
 		<tr>
-			<td id=pl1>><%=player.get(0).toString()%></td>
+			<td id=pl1><%=player.get(0).toString()%></td>
 			<td><input type="button" value="주사위 던지기1" id="player1">
 				<input type="button" value="주사위 던지기2" id="player2"> <input
 				type="text" value="0" id="time" readonly="readonly"> <span
 				id="dice1">0</span> <span id="dice2">0</span> <span id="dicesum"></span></td>
-			<td id=pl2>><%=player.get(1).toString()%></td>
+			<td id=pl2><%=player.get(1).toString()%></td>
 		</tr>
 		<tr>
 			<td>빈 공 간</td>
