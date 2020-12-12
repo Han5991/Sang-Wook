@@ -25,6 +25,9 @@ public class City implements Serializable {
 
 	public void setpassagemoney(int type, int number) {
 		switch (type) {
+		case 0:
+			passagemoney += number;
+			break;
 		case 1:
 			passagemoney += inn * number;
 			break;

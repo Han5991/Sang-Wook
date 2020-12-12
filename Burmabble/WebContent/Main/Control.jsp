@@ -56,6 +56,7 @@ if (player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() >= sum) {
 	// 도시 구매
 	if (cityname.equals("on")) {
 		city.get(Integer.parseInt(b)).setmaster(who);
+		city.get(Integer.parseInt(b)).setpassagemoney(0, 7000);
 	}
 	// 건물 구매
 	city.get(Integer.parseInt(b)).setpassagemoney(1, inn * 2);

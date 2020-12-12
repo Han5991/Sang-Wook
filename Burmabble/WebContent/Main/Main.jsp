@@ -8,6 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
 <title>Insert title here</title>
 <%
 	String C[] = {"시작", "방콕", "보너스게임", "베이징", "카드", "독도", "두바이", "카이로", "무인도", "발리", "도쿄", "시드니", "카드", "퀴벡", "하화이", "상파울로",
@@ -281,8 +286,6 @@ try {
 			Start.style.display="none";
 			Olympic.style.display="none";
 			Travel.style.display="none";
-			$("input:checkbox[name='city']").prop("checked", false);
-
 			//통신을 위한 작업  b= 현재위치
 			if (b == 0) {
 				var params = "b="+b;//"시작"
@@ -297,10 +300,14 @@ try {
 			} else if (b == 24) {
 				var params = "b="+b;// "세계여행"
 			} else{
-				var params = "b="+b+"&inn="+$("input[name=inn]").val()+"&motel="+$("input[name=motel]").val()+"&hotel="+$("input[name=hotel]").val()+"&who="+who+"&city="+$("input[name=city]").val();
+				var params = "b="+b+"&inn="+$("select[name=inn]").val()+"&motel="+$("select[name=motel]").val()+"&hotel="+$("select[name=hotel]").val()+"&who="+who+"&city="+$("input[name=city]").val();
+				console.log($("select[name=inn]").val())
+				console.log($("select[name=motel]").val())
+				console.log($("select[name=hotel]").val())
+				console.log(params);
+				console.log(isNaN(params));
 			}
-			
-			$("#resultCity  input[type=number]").val(0);
+			//$("#resultCity  input[type=number]").val("");
 			$("#Start  input").val(0);
 			$.ajax({
 				type : "POST", // 전송방식
@@ -328,8 +335,8 @@ try {
 				},
 				beforeSend : showRequest,
 				error : function(e) {
-					//alert("Main : "+e.responseText);
-					$("#chatting").html(e.responseText);
+					alert("Main : "+e.responseText);
+					//$("#chatting").html(e.responseText);
 				}
 			});
 			function showRequest() {
@@ -340,6 +347,9 @@ try {
 				}
 				return flag;
 			}
+			//도시 및 건물 구매후 초기화
+			$("input:checkbox[name='city']").prop("checked", false);
+			$("option:selected").prop("selected", false)
 				});//purchase 끝
 	});//제이쿼리 끝
 	}// onload 끝
@@ -375,10 +385,11 @@ div {
 	<table>
 		<tr>
 			<td id=pl1><%=player.get(0).toString()%></td>
-			<td><input type="button" value="주사위 던지기1" id="player1">
-				<input type="button" value="주사위 던지기2" id="player2"> <input
-				type="text" value="0" id="time" readonly="readonly"> <span
-				id="dice1">0</span> <span id="dice2">0</span> <span id="dicesum"></span></td>
+			<td><button type="button" class="btn btn-secondary" id="player1">주사위던지기1</button>
+				<button type="button" class="btn btn-secondary" id="player2">주사위던지기2</button>
+				<input type="text" value="0" id="time" readonly="readonly">
+				<span id="dice1">0</span> <span id="dice2">0</span> <span
+				id="dicesum"></span></td>
 			<td id=pl2><%=player.get(1).toString()%></td>
 		</tr>
 		<tr>
@@ -412,25 +423,38 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><input type="number" min="0" max="3" name=inn
-											value="0" /></td>
+										<td><select name='inn'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2" selected="selected">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3" name=motel
-											value="0" /></td>
+										<td><select name='motel'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><input type="number" min="0" max="3" name=hotel
-											value="0" /></td>
+										<td><select name='hotel'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
-										<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
-											<button type="button" name="cancel">구매취소</button></td>
+										<td colspan="3"><button type="button" id="purchase"
+												class="btn btn-secondary">도시/건물구매</button>
+											<button type="button" name="cancel" class="btn btn-secondary">구매취소</button></td>
 									</tr>
 								</table>
 							</div>
@@ -445,23 +469,44 @@ div {
 										<td>가격</td>
 									</tr>
 									<tr>
+										<td>도시 구매</td>
+										<td><input type="checkbox" name=city /></td>
+										<td>5,000</td>
+									</tr>
+									<tr>
 										<td>여관</td>
-										<td><input type="number" min="0" max="3" value="0" /></td>
+										<td><select name='inn'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2" selected="selected">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><input type="number" min="0" max="3" value="0" /></td>
+										<td><select name='motel'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>2,000</td>
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><input type="number" min="0" max="3" value="0" /></td>
+										<td><select name='hotel'>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+										</select></td>
 										<td>3,000</td>
 									</tr>
 									<tr>
-										<td colspan="3"><button type="button" id="purchase">도시/건물구매</button>
-											<button type="button" name="cancel">구매취소</button></td>
+										<td colspan="3"><button type="button" id="purchase"
+												class="btn btn-secondary">도시/건물구매</button>
+											<button type="button" name="cancel" class="btn btn-secondary">구매취소</button></td>
 									</tr>
 								</table>
 							</div>
@@ -529,8 +574,9 @@ div {
 									<option value=30>뉴욕</option>
 									<option value=31>서울</option>
 								</select>
-								<button type="button">여행가기</button>
-								<button type="button" name="cancel">여행 안 감</button>
+								<button type="button" class="btn btn-secondary">여행가기</button>
+								<button type="button" name="cancel" class="btn btn-secondary">여행
+									안 감</button>
 							</div></td>
 						<td id="25">타히티</td>
 					</tr>
