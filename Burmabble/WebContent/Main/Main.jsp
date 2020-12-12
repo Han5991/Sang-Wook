@@ -301,11 +301,6 @@ try {
 				var params = "b="+b;// "세계여행"
 			} else{
 				var params = "b="+b+"&inn="+$("select[name=inn]").val()+"&motel="+$("select[name=motel]").val()+"&hotel="+$("select[name=hotel]").val()+"&who="+who+"&city="+$("input[name=city]").val();
-				console.log($("select[name=inn]").val())
-				console.log($("select[name=motel]").val())
-				console.log($("select[name=hotel]").val())
-				console.log(params);
-				console.log(isNaN(params));
 			}
 			//$("#resultCity  input[type=number]").val("");
 			$("#Start  input").val(0);
@@ -423,17 +418,19 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><select name='inn'>
+										<td><select name='inn' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
-												<option value="2" selected="selected">2</option>
+												<option value="2">2</option>
 												<option value="3">3</option>
 										</select></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><select name='motel'>
+										<td><select name='motel' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -443,7 +440,8 @@ div {
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><select name='hotel'>
+										<td><select name='hotel' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -475,17 +473,19 @@ div {
 									</tr>
 									<tr>
 										<td>여관</td>
-										<td><select name='inn'>
+										<td><select name='inn' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
-												<option value="2" selected="selected">2</option>
+												<option value="2">2</option>
 												<option value="3">3</option>
 										</select></td>
 										<td>1,000</td>
 									</tr>
 									<tr>
 										<td>모텔</td>
-										<td><select name='motel'>
+										<td><select name='motel' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -495,7 +495,8 @@ div {
 									</tr>
 									<tr>
 										<td>호텔</td>
-										<td><select name='hotel'>
+										<td><select name='hotel' class="form-control"
+											id="exampleSelect1">
 												<option value="0">0</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
