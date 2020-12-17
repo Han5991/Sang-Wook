@@ -7,8 +7,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 /*---------플레이어 정보----------*/
-String b = request.getParameter("b");
-String who = request.getParameter("who");
+String b = request.getParameter("b"); //플레이어의 위치
+String who = request.getParameter("who"); // 플레이어 구분
 
 /*---------도시 정보----------*/
 String cityname = request.getParameter("city");
@@ -47,26 +47,37 @@ try {
 
 /*----------데이터 수정(도시 및 건물 구매) ----------*/
 String error = "";
-int sum = 0;
-if (cityname.equals("on")) {
-	sum = inn * 1000 + motel * 2000 + hotel * 3000 + 5000;
-} else
-	sum = inn * 1000 + motel * 2000 + hotel * 3000;
-if (player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() >= sum) {
-	// 도시 구매
+String result = "";
+if (city.get(Integer.parseInt(b)).getMaster().equals(who) || city.get(Integer.parseInt(b)).getMaster().equals("null")) {//도시 주인 확인
+	int sum = 0;
 	if (cityname.equals("on")) {
-		city.get(Integer.parseInt(b)).setmaster(who);
-		city.get(Integer.parseInt(b)).setpassagemoney(0, 7000);
+		sum = inn * 1000 + motel * 2000 + hotel * 3000 + 5000;
+	} else
+		sum = inn * 1000 + motel * 2000 + hotel * 3000;
+	if (player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() >= sum) {
+		// 도시 구매
+		if (cityname.equals("on")) {
+	city.get(Integer.parseInt(b)).setmaster(who);
+	city.get(Integer.parseInt(b)).setpassagemoney(0, 7000);
+		}
+		// 건물 구매
+		city.get(Integer.parseInt(b)).setpassagemoney(1, inn * 2);
+		city.get(Integer.parseInt(b)).setpassagemoney(2, motel * 2);
+		city.get(Integer.parseInt(b)).setpassagemoney(3, hotel * 2);
+		//돈 차감
+		player.get(Integer.parseInt(who.replace("p", "")) - 1)
+		.setMoney(player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() - sum);
+	} else {
+		error = "돈이 부족합니다";
 	}
-	// 건물 구매
-	city.get(Integer.parseInt(b)).setpassagemoney(1, inn * 2);
-	city.get(Integer.parseInt(b)).setpassagemoney(2, motel * 2);
-	city.get(Integer.parseInt(b)).setpassagemoney(3, hotel * 2);
-	//돈 차감
-	player.get(Integer.parseInt(who.replace("p", "")) - 1)
-	.setMoney(player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() - sum);
 } else {
-	error = "돈이 부족합니다";
+	if (who.equals("p1")) {
+		player.get(0).setMoney(player.get(0).getMoney() - city.get(Integer.parseInt(b)).getPassagemoney());
+		System.out.print("돈 지불");
+	} else {
+		player.get(1).setMoney(player.get(1).getMoney() - city.get(Integer.parseInt(b)).getPassagemoney());
+		System.out.print("돈 지불");
+	}
 }
 /*----------세이브파일 저장 ----------*/
 FileOutputStream fout = null;
