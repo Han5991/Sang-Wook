@@ -8,11 +8,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
 <title>Insert title here</title>
 <%
 	String C[] = {"시작", "방콕", "보너스게임", "베이징", "카드", "독도", "두바이", "카이로", "무인도", "발리", "도쿄", "시드니", "카드", "퀴벡", "하화이", "상파울로",
@@ -64,6 +59,11 @@ try {
 	}
 }
 %>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
 <script type="text/javascript" src="../jQuery/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	p1 = 0;
@@ -84,6 +84,7 @@ try {
 		var Start = document.getElementById("Start");
 		var Olympic = document.getElementById("Olympic");
 		var Travel = document.getElementById("Travel");
+		var Passagemoney = document.getElementById("Passagemoney"); 
 		
 		player2.disabled = true;
 		resultCity.style.display="none";
@@ -91,6 +92,7 @@ try {
 		Start.style.display="none";
 		Olympic.style.display="none";
 		Travel.style.display="none";
+		Passagemoney.style.display="none";
 		
 		for(var i = 0;i<cancel.length;i++){
 		 	cancel[i].onclick= function() {
@@ -119,8 +121,7 @@ try {
 				p1 += dicesum.value;
 
 				b = ((p1) % 32).toFixed(0);
-				console.log("p1 : "+b);
-				dicesum.innerHTML = dicesum.value;
+				dicesum.innerHTML = dicesum.value;//주사위 위치
 				
 				//파랑색으로 바뀌기 전에 흰색으로 초기화
 				var bg2 = document.getElementById(c);
@@ -130,7 +131,7 @@ try {
 				bg.style.backgroundColor = "#0000ff";
 				city.innerHTML = bg.innerHTML;
 				
-				//결과창에 서브 창 띄우기				
+				//결과창에 서브 창 띄우기
 				if(b==0){//시작
 					Start.style.display="block";
 					Uninhabited.style.display="none";
@@ -578,6 +579,20 @@ div {
 								<button type="button" class="btn btn-secondary">여행가기</button>
 								<button type="button" name="cancel" class="btn btn-secondary">여행
 									안 감</button>
+							</div>
+							<div id="Passagemoney">
+								<table>
+									<tr>
+										<td colspan="3">통행료 :
+											<div id="passagemoney"></div>
+										</td>
+									</tr>
+									<tr>
+										<td><input type="button" value="지급"></td>
+										<td><input type="button" value="매각"></td>
+										<td><input type="button" value="파산"></td>
+									</tr>
+								</table>
 							</div></td>
 						<td id="25">타히티</td>
 					</tr>
@@ -617,7 +632,7 @@ div {
 						<td id="0"><img src="../img/bg_start.png">시작</td>
 					</tr>
 				</table></td>
-			<td>빈 공 간</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>유저3</td>
