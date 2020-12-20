@@ -176,11 +176,17 @@ try {
 					resultCity.style.display="block";
 				}
 
-				//한 턴 당 시간 셋팅
+				//한 턴 당 시간 셋팅 및 초기화
 				setTimeout(() => {
 					clearInterval(g);
 					player2.disabled = false;
 					timer.value=0;
+					/*resultCity.style.display="none";
+					Uninhabited.style.display="none";
+					Start.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					Passagemoney.style.display="none";*/
 				}, 0);
 				
 				var t =0;
@@ -264,11 +270,17 @@ try {
 					resultCity.style.display="block";
 				}
 				
-				//한 턴당 시간 셋팅
+				//한 턴당 시간 셋팅 및 초기화
 				setTimeout(() => {
 					clearInterval(g);
 					player1.disabled = false;
 					timer.value=0;
+					/*resultCity.style.display="none";
+					Uninhabited.style.display="none";
+					Start.style.display="none";
+					Olympic.style.display="none";
+					Travel.style.display="none";
+					Passagemoney.style.display="none";*/
 				}, 0);
 				
 				var t =0;
