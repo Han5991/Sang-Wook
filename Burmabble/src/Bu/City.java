@@ -2,6 +2,7 @@ package Bu;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class City implements Serializable {
 	private String name;
 	private String master;

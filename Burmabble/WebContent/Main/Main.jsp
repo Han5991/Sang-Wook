@@ -225,7 +225,7 @@ try {
 				bg.style.backgroundColor = "#fff136";
 				city.innerHTML = bg.innerHTML;
 				
-				//결과창에 서브 창 띄우기				
+				//결과창에 서브 창 띄우기
 				if(b==0){//시작
 					Start.style.display="block";
 					Uninhabited.style.display="none";
@@ -328,18 +328,23 @@ try {
 					var pl1="";
 					var pl2="";
 					var error="";
+					var pass="";
 				$(args).find("record").each(function() {// record 다 찾아
 					var subject = $(this).find("subject").text();
 					var content1 = $(this).find("content1").text();
 					var content2 = $(this).find("content2").text();
 					var content3 = $(this).find("content3").text();
+					var content4 = $(this).find("content4").text();
 							     str+= subject+"<br>"+content3;
 							     pl1+= content1;
 							     pl2+= content2;
+							     pass+=content4;
 				 });
+				
 					$("#chatting").html(str);
 					$("#pl1").html(pl1);
 					$("#pl2").html(pl2);
+					$("#passagemoney").html(pass);
 				},
 				beforeSend : showRequest,
 				error : function(e) {

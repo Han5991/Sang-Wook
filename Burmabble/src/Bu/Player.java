@@ -1,10 +1,12 @@
 package Bu;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Player implements Serializable {
 	private String id;
 	private int money = 100000;
+	private ArrayList<City> citymaster = new ArrayList<City>();
 
 	public Player(String id) {
 		this.id = id;
