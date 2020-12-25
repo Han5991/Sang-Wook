@@ -1,3 +1,4 @@
+<%@page import="jdk.internal.misc.FileSystemOption"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Bu.City"%>
 <%@page import="Bu.Player"%>
@@ -12,6 +13,7 @@ String who = request.getParameter("who"); // 플레이어 구분
 
 /*---------도시 정보----------*/
 String cityname = request.getParameter("city");
+System.out.print(cityname);
 int inn = Integer.parseInt(request.getParameter("inn"));
 int motel = Integer.parseInt(request.getParameter("motel"));
 int hotel = Integer.parseInt(request.getParameter("hotel"));
@@ -52,10 +54,9 @@ if (city.get(Integer.parseInt(b)).getMaster().equals(who) || city.get(Integer.pa
 	int sum = 0;
 	if (cityname.equals("on")) {
 		sum = inn * 1000 + motel * 2000 + hotel * 3000 + 5000;
-		
 	} else
 		sum = inn * 1000 + motel * 2000 + hotel * 3000;
-	if (player.get(Integer.parseInt(who.replace("p","")) - 1).getMoney() >= sum) {
+	if (player.get(Integer.parseInt(who.replace("p", "")) - 1).getMoney() >= sum) {
 		// 도시 구매
 		if (cityname.equals("on")) {
 	city.get(Integer.parseInt(b)).setmaster(who);//도시 주인 표시
@@ -112,19 +113,9 @@ for (int i = 0; i < city.size(); i++) {
 }
 /*----------------------------------------------*/
 %>
-<root>
-<status></status>
-<!-- 사용자가 넘긴 데이터들 출력 -->
-<record id="1">
-<subject><%=city.get(Integer.parseInt(b)).toString()%></subject>
-<content1><%=player.get(0).toString()%></content1>
-<content2><%=player.get(1).toString()%></content2>
-<content3><%=error%></content3>
+<root> <status></status> <!-- 사용자가 넘긴 데이터들 출력 --> <record id="1">
+<subject><%=city.get(Integer.parseInt(b)).toString()%></subject> <content1><%=player.get(0).toString()%></content1>
+<content2><%=player.get(1).toString()%></content2> <content3><%=error%></content3>
 <content4><%=city.get(Integer.parseInt(b)).getPassagemoney()%></content4>
-</record>
-<!-- 추가 데이터 -->
-<record id="2">
-<subject></subject>
-<content></content>
-</record>
-</root>
+</record> <!-- 추가 데이터 --> <record id="2"> <subject></subject> <content></content>
+</record> </root>

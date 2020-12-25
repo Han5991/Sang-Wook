@@ -371,7 +371,6 @@ try {
 table {
 	text-align: center;
 	border: 1px solid black;
-	text-align: center;
 	margin: 0px auto;
 }
 

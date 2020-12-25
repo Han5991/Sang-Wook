@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+@font-face {
+	font-family: hzStyleFont;
+	src: url("../font/Cafe24Ssurround.ttf");
+}
+
+* {
+	font-family: hzStyleFont;
+	font-size: 30px;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 1119px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+.table {
+	height: 100%;
+}
+
+.table td, .table th {
+	vertical-align: middle;
+	/* padding: inherit;
+}
+</style>
+</head>
+<body>
+	<footer class="container-fluid">
+		<p>Footer Text</p>
+	</footer>
+
+	<div class="container-fluid">
+		<div class="row content ">
+			<div class="col-xl-1 sidenav ml-auto">
+				<p>
+					<a href="#">Player1</a>
+				</p>
+			</div>
+			<div class="col-xl-10">
+				<table class="table table-striped">
+					<tr>
+						<td id="16">올림픽</td>
+						<td id="17">프라하</td>
+						<td id="18">푸켓</td>
+						<td id="19">베를린</td>
+						<td id="20">카드</td>
+						<td id="21">모스크바</td>
+						<td id="22">제네바</td>
+						<td id="23">로마</td>
+						<td id="24">세계여행</td>
+					</tr>
+					<tr>
+						<td id="15">상파울로</td>
+						<td rowspan="7" colspan="7">
+							<table class="m-auto">
+								<tr>
+									<td>종류</td>
+									<td>갯수</td>
+									<td>가격</td>
+								</tr>
+								<tr>
+									<td>도시 구매</td>
+									<td><input type="checkbox" name=city class="checkbox" /></td>
+									<td>5,000</td>
+								</tr>
+								<tr>
+									<td>여관</td>
+									<td><select name='inn' class="form-control"
+										id="exampleSelect1">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+									</select></td>
+									<td>1,000</td>
+								</tr>
+								<tr>
+									<td>모텔</td>
+									<td><select name='motel' class="form-control"
+										id="exampleSelect1">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+									</select></td>
+									<td>2,000</td>
+								</tr>
+								<tr>
+									<td>호텔</td>
+									<td><select name='hotel' class="form-control"
+										id="exampleSelect1">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+									</select></td>
+									<td>3,000</td>
+								</tr>
+								<tr>
+									<td colspan="3"><button type="button" id="purchase"
+											class="btn btn-secondary">도시/건물구매</button>
+										<button type="button" name="cancel" class="btn btn-secondary">구매취소</button></td>
+								</tr>
+							</table>
+						</td>
+						<td id="25">타히티</td>
+					</tr>
+					<tr>
+						<td id="14">하화이</td>
+						<td id="26">아테네</td>
+					</tr>
+					<tr>
+						<td id="13">퀘벡</td>
+						<td id="27">런던</td>
+					</tr>
+					<tr>
+						<td id="12">카드</td>
+						<td id="28">카드</td>
+					</tr>
+					<tr>
+						<td id="11">시드니</td>
+						<td id="29">파리</td>
+					</tr>
+					<tr>
+						<td id="10">도쿄</td>
+						<td id="30">뉴욕</td>
+					</tr>
+					<tr>
+						<td id="9">발리</td>
+						<td id="31">서울</td>
+					</tr>
+					<tr>
+						<td id="8">무인도</td>
+						<td id="7">카이로</td>
+						<td id="6">두바이</td>
+						<td id="5">독도</td>
+						<td id="4">카드</td>
+						<td id="3">베이징</td>
+						<td id="2">보너스게임</td>
+						<td id="1">방콕</td>
+						<td id="0">시작</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-xl-1  mr-auto sidenav">
+				<p>
+					<a href="#">Player2</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<footer class="container-fluid">
+		<p>Footer Text</p>
+	</footer>
+</body>
+</html>
