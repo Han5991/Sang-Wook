@@ -12,6 +12,112 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	p1 = 0;
+	p2 = 0;
+	who="";
+	window.onload = function() {
+		var player1 = document.getElementById("player1");
+		var player2 = document.getElementById("player2");
+		var diceveiw1 = document.getElementById("dice1");
+		var diceveiw2 = document.getElementById("dice2");
+		var dicesum = document.getElementById("dicesum");
+		
+		var timer = document.getElementById("time");
+		
+		player2.disabled = true;
+		
+		$(function() {
+			$("#player1").click(function() {
+			who="p1";
+				//순서대로 번호를 누르기 위한 작업
+				player1.disabled = true;
+				
+				//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
+				var dice1 = Math.floor(((Math.random() * 5 + 1)))
+				var dice2 = Math.floor(((Math.random() * 5 + 1)))
+				diceveiw1.innerHTML = dice1;
+				diceveiw2.innerHTML = dice2;
+				dicesum.value = dice1 + dice2
+
+				var c = ((p1) % 32).toFixed(0);
+				p1 += dicesum.value;
+
+				b = ((p1) % 32).toFixed(0);
+				dicesum.innerHTML = dicesum.value;//주사위 위치
+				
+				//파랑색으로 바뀌기 전에 흰색으로 초기화
+				var bg2 = document.getElementById(c);
+				bg2.style.backgroundImage="url('../img/bg_stage.png')";
+				bg2.style.backgroundSize= "initial";
+				//주사위가 움직인 만큼 파랑색으로 바뀜 
+				var bg = document.getElementById(b);
+				bg.style.backgroundImage="url('../img/img_player_1.png')";
+				bg.style.backgroundSize= "183px 118px";
+				city.innerHTML = bg.innerHTML;
+				
+				//한 턴 당 시간 셋팅 및 초기화
+				setTimeout(() => {
+					clearInterval(g);
+					player2.disabled = false;
+					timer.value=0;
+				}, 0);
+				
+				var t =0;
+				
+				var g =setInterval(function() {
+					t++;
+					timer.value=t;
+				}, 1000)
+			
+			});//p1
+/*--------------------------------------------------------------------------------------*/
+			$("#player2").click(function() {
+				who="p2";
+				//순서대로 번호를 누르기 위한 작업
+				player2.disabled = true;
+				
+				//두 개의 주사위를 각 각 던져서 화면에 표시하고 말판을 움직임
+				var dice1 = Math.floor(((Math.random() * 5 + 1)))
+				var dice2 = Math.floor(((Math.random() * 5 + 1)))
+				diceveiw1.innerHTML = dice1;
+				diceveiw2.innerHTML = dice2;
+				dicesum.value = dice1 + dice2;
+				
+				var c = ((p2) % 32).toFixed(0);
+				p2 += dicesum.value;
+
+				b = ((p2) % 32).toFixed(0);
+				dicesum.innerHTML = dicesum.value;
+
+				//노랑색으로 바뀌기 전에 흰색으로 초기화
+				var bg2 = document.getElementById(c);
+				bg2.style.backgroundImage="url('../img/bg_stage.png')";
+				bg2.style.backgroundSize= "initial";
+				//주사위가 움직인 만큼 노랑색으로 바뀜 
+				var bg = document.getElementById(b);
+				bg.style.backgroundImage="url('../img/img_player_2.png')";
+				bg.style.backgroundSize= "183px 118px";
+				city.innerHTML = bg.innerHTML;
+				
+				//한 턴당 시간 셋팅 및 초기화
+				setTimeout(() => {
+					clearInterval(g);
+					player1.disabled = false;
+					timer.value=0;
+				}, 0);
+				
+				var t =0;
+				
+				var g =setInterval(function() {
+					t++;
+					timer.value=t;
+				}, 1000)
+				
+			});//p2
+	});//제이쿼리 끝
+	}// onload 끝
+	</script>
 <style>
 @font-face {
 	font-family: hzStyleFont;
@@ -23,20 +129,17 @@
 	font-size: 30px;
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
 	height: 1119px;
 	text-align: center;
 	vertical-align: middle;
 }
 
-/* Set gray background color and 100% height */
 .sidenav {
 	background-color: #f1f1f1;
 	height: 100%;
 }
 
-/* Set black background color, white text and some padding */
 footer {
 	background-color: #555;
 	color: white;
@@ -48,25 +151,29 @@ footer {
 }
 
 .table td, .table th {
-	vertical-align: middle;
-	/* padding: inherit;
+	vertical-align: middle; /*
+	padding: inherit;
 }
 </style>
 </head>
 <body>
 	<footer class="container-fluid">
-		<p>Footer Text</p>
+		<button type="button" class="btn btn-secondary" id="player1">주사위던지기1</button>
+		<button type="button" class="btn btn-secondary" id="player2">주사위던지기2</button>
+		<input type="text" value="0" id="time" readonly="readonly" size="1"
+			style="text-align: center;"> <span id="dice1">0</span> <span
+			id="dice2">0</span> <span id="dicesum">0</span>&nbsp;<span id="city"></span>
 	</footer>
 
 	<div class="container-fluid">
 		<div class="row content ">
 			<div class="col-xl-1 sidenav ml-auto">
-				<p>
+				<h1>
 					<a href="#">Player1</a>
-				</p>
+				</h1>
 			</div>
-			<div class="col-xl-10">
-				<table class="table table-striped">
+			<div class="col-xl-10" style="background-image: url('../img/bg_stage.png');" id="stage">
+				<table class="table">
 					<tr>
 						<td id="16">올림픽</td>
 						<td id="17">프라하</td>
@@ -80,7 +187,8 @@ footer {
 					</tr>
 					<tr>
 						<td id="15">상파울로</td>
-						<td rowspan="7" colspan="7">
+						<td rowspan="7" colspan="7" style="background-image: url('../img/bg_board.png')";>
+						
 							<table class="m-auto">
 								<tr>
 									<td>종류</td>
@@ -172,9 +280,9 @@ footer {
 				</table>
 			</div>
 			<div class="col-xl-1  mr-auto sidenav">
-				<p>
+				<h1>
 					<a href="#">Player2</a>
-				</p>
+				</h1>
 			</div>
 		</div>
 	</div>
