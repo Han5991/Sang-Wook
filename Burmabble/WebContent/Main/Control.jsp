@@ -31,11 +31,12 @@ try {
 	fin = new FileInputStream("city.text");
 	oin = new ObjectInputStream(fin);
 	city = (ArrayList) oin.readObject();
-
+	System.out.println("Con : 도시불러오기 완료");
+	
 	fin = new FileInputStream("player.text");
 	oin = new ObjectInputStream(fin);
 	player = (ArrayList) oin.readObject();
-
+	System.out.println("Con : 플레이어불러오기 완료");
 } catch (Exception e) {
 	System.out.println("Con  E : " + e);
 } finally {

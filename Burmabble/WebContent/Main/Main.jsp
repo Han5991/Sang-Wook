@@ -10,11 +10,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
-	String C[] = {"시작", "방콕", "보너스게임", "베이징", "카드", "독도", "두바이", "카이로", "무인도", "발리", "도쿄", "시드니", "카드", "퀴벡", "하화이", "상파울로",
+	String Cname[] = {"시작", "방콕", "보너스게임", "베이징", "카드", "독도", "두바이", "카이로", "무인도", "발리", "도쿄", "시드니", "카드", "퀴벡", "하화이", "상파울로",
 		"올림픽", "프라하", "푸켓", "베를린", "카드", "모스크바", "제네바", "로마", "세계여행", "타히티", "아테네", "런던", "카드", "파리", "뉴욕", "서울"};
 ArrayList<City> city = new ArrayList<City>();
 for (int i = 0; i < 32; i++) {
-	city.add(new City(C[i], "null"));
+	city.add(new City(Cname[i], "null"));
 	if (i == 0) {
 		city.get(i).setmaster("시작");
 	} else if (i == 2) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
+<title>부루마블</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -43,8 +43,8 @@
 				var c = ((p1) % 32).toFixed(0);
 				p1 += dicesum.value;
 
-				b = ((p1) % 32).toFixed(0);
-				dicesum.innerHTML = dicesum.value;//주사위 위치
+				b = ((p1) % 32).toFixed(0); // 현재 플레이어의 위치
+				dicesum.innerHTML = dicesum.value;//주사위 합
 				
 				//파랑색으로 바뀌기 전에 흰색으로 초기화
 				var bg2 = document.getElementById(c);
